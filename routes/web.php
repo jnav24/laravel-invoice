@@ -11,9 +11,4 @@
 |
 */
 
-Route::get('/', function () {
-//    return view('templates.test');
-    $data = [];
-    $pdf = PDF::loadView('templates.test', $data);
-    return $pdf->stream('invoice.pdf');
-});
+Route::get('/templates/preview/{type}', 'InvoiceController@loadPreviewPdf');

@@ -1,3 +1,6 @@
+<?php
+    $total = 0;
+?>
 <style>
     * { margin: 0; padding: 0; }
     body {
@@ -63,35 +66,35 @@
 
     <div id="identity">
         <div id="address">
-            <p>Chris Coyier</p>
-            <p>123 Appleseed Street</p>
-            <p>Appleville, WI 53719</p>
-            <p>Phone: (555) 555-5555</p>
+            <p>{{ $user_info['name'] }}</p>
+            <p>{{ $user_info['address'] }}</p>
+            <p>{{ $user_info['city'] }}, {{ $user_info['state'] }}, {{ $user_info['zip'] }}</p>
+            <p>Phone: {{ $user_info['number'] }}</p>
         </div>
 
         <div id="logo">
-            <img id="image" src="http://brandmark.io/logo-rank/random/beats.png" alt="logo" />
+            <img id="image" src="{{ $user_info['logo'] }}" alt="logo" />
         </div>
     </div>
 
     <div style="clear:both"></div>
 
     <div id="customer">
-        <div id="customer-title">Widget Corp. c/o Steve Widget</div>
+        <div id="customer-title">{{ $company_info['name'] }}</div>
 
         <table id="meta">
             <tr>
                 <td class="meta-head">Invoice #</td>
-                <td>000123</td>
+                <td>{{ $invoice }}</td>
             </tr>
             <tr>
 
                 <td class="meta-head">Date</td>
-                <td>December 15, 2009</td>
+                <td>{{ $date }}</td>
             </tr>
             <tr>
-                <td class="meta-head">Amount Due</td>
-                <td><div class="due">$875.00</div></td>
+                <td class="meta-head">Subject</td>
+                <td><div class="due">{{ $invoice_subject }}</div></td>
             </tr>
 
         </table>
@@ -107,25 +110,24 @@
             <th>Price</th>
         </tr>
 
-        <tr class="item-row">
-            <td class="description">Monthly web updates for http://widgetcorp.com (Nov. 1 - Nov. 30, 2009)</td>
-            <td>$650.00</td>
-            <td>1</td>
-            <td>$650.00</td>
-        </tr>
-
-        <tr class="item-row">
-            <td class="description">Yearly renewals of SSL certificates on main domain and several subdomains</td>
-            <td>$75.00</td>
-            <td>3</td>
-            <td>$225.00</td>
-        </tr>
+        @foreach($invoice_details as $details)
+            <?php
+                $price = $details['unit_cost'] * $details['quantity'];
+                $total = $total + $price;
+            ?>
+            <tr class="item-row">
+                <td class="description">{{ $details['description'] }}</td>
+                <td>${{ $details['unit_cost'] }}</td>
+                <td>{{ $details['quantity'] }}</td>
+                <td>${{ number_format($price,2) }}</td>
+            </tr>
+        @endforeach
     </table>
 
     <div id="totals">
         <div class="total-row">
             <div class="total-col">Total Due:</div>
-            <div class="total-col"><strong>$875.00</strong></div>
+            <div class="total-col"><strong>${{ number_format($total,2) }}</strong></div>
         </div>
     </div>
 
@@ -137,27 +139,3 @@
     </div>
 
 </div>
-
-<!--
-<tr>
-            <td colspan="2" class="blank"> </td>
-            <td colspan="2" class="total-line">Subtotal</td>
-            <td class="total-value"><div id="subtotal">$875.00</div></td>
-        </tr>
-        <tr>
-
-            <td colspan="2" class="blank"> </td>
-            <td colspan="2" class="total-line">Total</td>
-            <td class="total-value"><div id="total">$875.00</div></td>
-        </tr>
-        <tr>
-            <td colspan="2" class="blank"> </td>
-            <td colspan="2" class="total-line">Amount Paid</td>
-
-            <td class="total-value"><textarea id="paid">$0.00</textarea></td>
-        </tr>
-        <tr>
-            <td colspan="2" class="blank"> </td>
-            <td colspan="2" class="total-line balance">Balance Due</td>
-            <td class="total-value balance"><div class="due">$875.00</div></td>
-        </tr> -->
