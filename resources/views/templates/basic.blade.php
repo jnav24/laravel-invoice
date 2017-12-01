@@ -73,7 +73,9 @@
         </div>
 
         <div id="logo">
+            @if (!empty($user_info['logo']))
             <img id="image" src="{{ $user_info['logo'] }}" alt="logo" />
+            @endif
         </div>
     </div>
 
