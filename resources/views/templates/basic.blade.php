@@ -104,6 +104,7 @@
     <table id="items">
 
         <tr>
+            <th>Date</th>
             <th>Description</th>
             <th>Unit Cost</th>
             <th>Quantity</th>
@@ -116,6 +117,9 @@
                 $total = $total + $price;
             ?>
             <tr class="item-row">
+                <td>{{ Carbon\Carbon::parse($details['date'])->format('d-m-Y i') }}
+                    {{ $details['date']->format('d m Y i') }}
+                </td>
                 <td class="description">{{ $details['description'] }}</td>
                 <td>${{ $details['unit_cost'] }}</td>
                 <td>{{ $details['quantity'] }}</td>

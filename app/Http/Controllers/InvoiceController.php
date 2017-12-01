@@ -34,11 +34,13 @@ class InvoiceController extends Controller
             ],
             'invoice_details' => [
                 [
+                    'date' => '1512157034',
                     'description' => 'Monthly web updates for http://widgetcorp.com (Nov. 1 - Nov. 30, 2009)',
                     'quantity' => 1,
                     'unit_cost' => 650
                 ],
                 [
+                    'date' => '1512157034',
                     'description' => 'Yearly renewals of SSL certificates on main domain and several subdomains',
                     'quantity' => 3,
                     'unit_cost' => 75
